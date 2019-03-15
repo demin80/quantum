@@ -276,6 +276,12 @@ int Dispatcher::getNumIoThreads() const
 }
 
 inline
+const std::pair<size_t, size_t>& Dispatcher::getAnyCoroQueueIdRange() const
+{
+    return _dispatcher.getAnyCoroQueueIdRange();
+}
+
+inline
 QueueStatistics Dispatcher::stats(IQueue::QueueType type,
                                   int queueId)
 {
