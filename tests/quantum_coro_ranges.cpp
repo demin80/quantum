@@ -26,81 +26,81 @@ TEST(DispatcherCoroRangeTest, DefaultAnyCoroQueueIdRange1)
     quantum::Configuration configuration;
     configuration.setNumCoroutineThreads(10);
     quantum::Dispatcher dispatcher(configuration);
-    
-    EXPECT_EQ(0, dispatcher.getAnyCoroQueueIdRange().first);
-    EXPECT_EQ(10, dispatcher.getAnyCoroQueueIdRange().second);
+
+    EXPECT_EQ(0, dispatcher.getCoroQueueIdRangeForAny().first);
+    EXPECT_EQ(10, dispatcher.getCoroQueueIdRangeForAny().second);
 }
 
 TEST(DispatcherCoroRangeTest, DefaultAnyCoroQueueIdRange2)
 {
     quantum::Dispatcher dispatcher(5);
     
-    EXPECT_EQ(0, dispatcher.getAnyCoroQueueIdRange().first);
-    EXPECT_EQ(5, dispatcher.getAnyCoroQueueIdRange().second);
+    EXPECT_EQ(0, dispatcher.getCoroQueueIdRangeForAny().first);
+    EXPECT_EQ(5, dispatcher.getCoroQueueIdRangeForAny().second);
 }
 
 TEST(DispatcherCoroRangeTest, ValidAnyCoroQueueIdRange1)
 {
     quantum::Configuration configuration;
     configuration.setNumCoroutineThreads(10);
-    configuration.setAnyCoroQueueIdRange(std::pair<size_t, size_t>(2,3));
+    configuration.setCoroQueueIdRangeForAny(std::pair<size_t, size_t>(2,3));
     quantum::Dispatcher dispatcher(configuration);
     
-    EXPECT_EQ(2, dispatcher.getAnyCoroQueueIdRange().first);
-    EXPECT_EQ(3, dispatcher.getAnyCoroQueueIdRange().second);
+    EXPECT_EQ(2, dispatcher.getCoroQueueIdRangeForAny().first);
+    EXPECT_EQ(3, dispatcher.getCoroQueueIdRangeForAny().second);
 }
 
 TEST(DispatcherCoroRangeTest, ValidAnyCoroQueueIdRange2)
 {
     quantum::Configuration configuration;
     configuration.setNumCoroutineThreads(10);
-    configuration.setAnyCoroQueueIdRange(std::pair<size_t, size_t>(1,8));
+    configuration.setCoroQueueIdRangeForAny(std::pair<size_t, size_t>(1,8));
     quantum::Dispatcher dispatcher(configuration);
     
-    EXPECT_EQ(1, dispatcher.getAnyCoroQueueIdRange().first);
-    EXPECT_EQ(8, dispatcher.getAnyCoroQueueIdRange().second);
+    EXPECT_EQ(1, dispatcher.getCoroQueueIdRangeForAny().first);
+    EXPECT_EQ(8, dispatcher.getCoroQueueIdRangeForAny().second);
 }
 
 TEST(DispatcherCoroRangeTest, EmptyAnyCoroQueueIdRange1)
 {
     quantum::Configuration configuration;
     configuration.setNumCoroutineThreads(10);
-    configuration.setAnyCoroQueueIdRange(std::pair<size_t, size_t>(1,0));
+    configuration.setCoroQueueIdRangeForAny(std::pair<size_t, size_t>(1,0));
     quantum::Dispatcher dispatcher(configuration);
     
-    EXPECT_EQ(0, dispatcher.getAnyCoroQueueIdRange().first);
-    EXPECT_EQ(10, dispatcher.getAnyCoroQueueIdRange().second);
+    EXPECT_EQ(0, dispatcher.getCoroQueueIdRangeForAny().first);
+    EXPECT_EQ(10, dispatcher.getCoroQueueIdRangeForAny().second);
 }
 
 TEST(DispatcherCoroRangeTest, EmptyAnyCoroQueueIdRange2)
 {
     quantum::Configuration configuration;
     configuration.setNumCoroutineThreads(10);
-    configuration.setAnyCoroQueueIdRange(std::pair<size_t, size_t>(1,1));
+    configuration.setCoroQueueIdRangeForAny(std::pair<size_t, size_t>(1,1));
     quantum::Dispatcher dispatcher(configuration);
     
-    EXPECT_EQ(0, dispatcher.getAnyCoroQueueIdRange().first);
-    EXPECT_EQ(10, dispatcher.getAnyCoroQueueIdRange().second);
+    EXPECT_EQ(0, dispatcher.getCoroQueueIdRangeForAny().first);
+    EXPECT_EQ(10, dispatcher.getCoroQueueIdRangeForAny().second);
 }
 
 TEST(DispatcherCoroRangeTest, EmptyAnyCoroQueueIdRange3)
 {
     quantum::Configuration configuration;
     configuration.setNumCoroutineThreads(10);
-    configuration.setAnyCoroQueueIdRange(std::pair<size_t, size_t>(10,9));
+    configuration.setCoroQueueIdRangeForAny(std::pair<size_t, size_t>(10,9));
     quantum::Dispatcher dispatcher(configuration);
     
-    EXPECT_EQ(0, dispatcher.getAnyCoroQueueIdRange().first);
-    EXPECT_EQ(10, dispatcher.getAnyCoroQueueIdRange().second);
+    EXPECT_EQ(0, dispatcher.getCoroQueueIdRangeForAny().first);
+    EXPECT_EQ(10, dispatcher.getCoroQueueIdRangeForAny().second);
 }
 
 TEST(DispatcherCoroRangeTest, InvalidAnyCoroQueueIdRange1)
 {
     quantum::Configuration configuration;
     configuration.setNumCoroutineThreads(10);
-    configuration.setAnyCoroQueueIdRange(std::pair<size_t, size_t>(20,30));
+    configuration.setCoroQueueIdRangeForAny(std::pair<size_t, size_t>(20,30));
     quantum::Dispatcher dispatcher(configuration);
     
-    EXPECT_EQ(0, dispatcher.getAnyCoroQueueIdRange().first);
-    EXPECT_EQ(10, dispatcher.getAnyCoroQueueIdRange().second);
+    EXPECT_EQ(0, dispatcher.getCoroQueueIdRangeForAny().first);
+    EXPECT_EQ(10, dispatcher.getCoroQueueIdRangeForAny().second);
 }

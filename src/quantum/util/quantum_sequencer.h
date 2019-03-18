@@ -62,7 +62,7 @@ public:
     /// @param[in] args Variable list of arguments passed to the callable object.
     /// @note This function is non-blocking and returns immediately.
     /// @remark For lowering the latencies of processing tasks posted here, it is suggested that the configured
-    /// Any-coroutine-queue-range (@see Configuration::setAnyCoroQueueIdRange) does not contain
+    /// Any-coroutine-queue-range (@see Configuration::setCoroQueueIdRangeForAny) does not contain
     /// the control queue id (@see SequencerConfiguration::setControlQueueId).
     template <class FUNC, class ... ARGS>
     void
@@ -89,7 +89,7 @@ public:
     /// @remark For lowering the latencies of processing tasks posted here, queueId is suggested to be
     /// different from the control queue id (@see SequencerConfiguration::setControlQueueId). Hence, if
     /// IQueue::QueueId::Any is intended to be used as queueId here, then it is suggested that the configured
-    /// Any-coroutine-queue-range (@see Configuration::setAnyCoroQueueIdRange) does not contain
+    /// Any-coroutine-queue-range (@see Configuration::setCoroQueueIdRangeForAny) does not contain
     /// the control queue id.
     template <class FUNC, class ... ARGS>
     void
@@ -106,7 +106,7 @@ public:
     /// @param[in] args Variable list of arguments passed to the callable object.
     /// @note This function is non-blocking and returns immediately.
     /// @remark For lowering the latencies of processing tasks posted here, it is suggested that the configured
-    /// Any-coroutine-queue-range (@see Configuration::setAnyCoroQueueIdRange) does not contain
+    /// Any-coroutine-queue-range (@see Configuration::setCoroQueueIdRangeForAny) does not contain
     /// the control queue id (@see SequencerConfiguration::setControlQueueId).
     template <class FUNC, class ... ARGS>
     void
@@ -133,7 +133,7 @@ public:
     /// @remark For lowering the latencies of processing tasks posted here, queueId is suggested to be
     /// different from the control queue id (@see SequencerConfiguration::setControlQueueId). Hence, if
     /// IQueue::QueueId::Any is intended to be used as queueId here, then it is suggested that the configured
-    /// Any-coroutine-queue-range (@see Configuration::setAnyCoroQueueIdRange) does not contain
+    /// Any-coroutine-queue-range (@see Configuration::setCoroQueueIdRangeForAny) does not contain
     /// the control queue id.
     template <class FUNC, class ... ARGS>
     void
@@ -154,7 +154,7 @@ public:
     /// @param[in] args Variable list of arguments passed to the callable object.
     /// @note This function is non-blocking and returns immediately.
     /// @remark For lowering the latencies of processing tasks posted here, it is suggested that the configured
-    /// Any-coroutine-queue-range (@see Configuration::setAnyCoroQueueIdRange) does not contain
+    /// Any-coroutine-queue-range (@see Configuration::setCoroQueueIdRangeForAny) does not contain
     /// the control queue id (@see SequencerConfiguration::setControlQueueId).
     template <class FUNC, class ... ARGS>
     void
@@ -180,7 +180,7 @@ public:
     /// @remark For lowering the latencies of processing tasks posted here, queueId is suggested to be
     /// different from the control queue id (@see SequencerConfiguration::setControlQueueId). Hence, if
     /// IQueue::QueueId::Any is intended to be used as queueId here, then it is suggested that the configured
-    /// Any-coroutine-queue-range (@see Configuration::setAnyCoroQueueIdRange) does not contain
+    /// Any-coroutine-queue-range (@see Configuration::setCoroQueueIdRangeForAny) does not contain
     /// the control queue id.
     template <class FUNC, class ... ARGS>
     void

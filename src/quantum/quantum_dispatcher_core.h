@@ -67,7 +67,7 @@ public:
     
     int getNumIoThreads() const;
 
-    const std::pair<size_t, size_t>& getAnyCoroQueueIdRange() const;
+    const std::pair<size_t, size_t>& getCoroQueueIdRangeForAny() const;
     
 private:
     // TODO : Remove - deprecated
@@ -95,7 +95,7 @@ private:
     std::vector<IoQueue>      _ioQueues;       //dedicated IO task queues
     bool                      _loadBalanceSharedIoQueues; //tasks posted to 'Any' IO queue are load balanced
     std::atomic_flag          _terminated;
-    std::pair<size_t, size_t> _anyCoroQueueIdRange; // range of coroutine queueIds covered by 'Any' 
+    std::pair<size_t, size_t>  _coroQueueIdRangeForAny; // range of coroutine queueIds covered by 'Any' 
 };
 
 }}

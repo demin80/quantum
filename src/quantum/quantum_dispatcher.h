@@ -312,7 +312,7 @@ public:
     /// @brief Gets the range [minQueueId, maxQueueId) of coroutine queueIds covered by IQueue::QueueId::Any
     /// when using Dispatcher::post
     /// @return queueIdRange The range of queueIds that IQueue::QueueId::Any covers
-    const std::pair<size_t, size_t>& getAnyCoroQueueIdRange() const;
+    const std::pair<size_t, size_t>& getCoroQueueIdRangeForAny() const;
     
     /// @brief Returns a statistics object for the specified type and queue id.
     /// @param[in] type The type of queue.

@@ -159,7 +159,7 @@ struct IThreadContext : public IThreadContextBase
     /// @brief Gets the range [minQueueId, maxQueueId) of coroutine queueIds covered by IQueue::QueueId::Any
     /// by the Dispatcher.
     /// @return queueIdRange The range of queueIds that IQueue::QueueId::Any covers
-    const std::pair<size_t, size_t>& getAnyCoroQueueIdRange() const;
+    const std::pair<size_t, size_t>& getCoroQueueIdRangeForAny() const;
     
     //=========================================================================================
     //                                      TASK CONTINUATIONS

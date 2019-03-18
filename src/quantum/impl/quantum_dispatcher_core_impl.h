@@ -32,7 +32,7 @@ DispatcherCore::DispatcherCore(int numCoroutineThreads,
     _ioQueues((numIoThreads <= 0) ? 1 : numIoThreads, IoQueue(Configuration(), &_sharedIoQueues)),
     _loadBalanceSharedIoQueues(false),
     _terminated(ATOMIC_FLAG_INIT),
-    _anyCoroQueueIdRange(0, _coroQueues.size())
+    _coroQueueIdRangeForAny(0, _coroQueues.size())
 {
     if (pinCoroutineThreadsToCores)
     {
@@ -51,7 +51,8 @@ DispatcherCore::DispatcherCore(const Configuration& config) :
     _sharedIoQueues((config.getNumIoThreads() <= 0) ? 1 : config.getNumIoThreads(), IoQueue(config, nullptr)),
     _ioQueues((config.getNumIoThreads() <= 0) ? 1 : config.getNumIoThreads(), IoQueue(config, &_sharedIoQueues)),
     _loadBalanceSharedIoQueues(false),
-    _terminated(ATOMIC_FLAG_INIT)
+    _terminated(ATOMIC_FLAG_INIT),
+    _coroQueueIdRangeForAny(0, _coroQueues.size())
 {
     if (config.getPinCoroutineThreadsToCores())
     {
@@ -61,13 +62,13 @@ DispatcherCore::DispatcherCore(const Configuration& config) :
             _coroQueues[i].pinToCore(i%cores);
         }
     }
-    _anyCoroQueueIdRange = config.getAnyCoroQueueIdRange();
+    const auto& coroQueueIdRangeForAny = config.getCoroQueueIdRangeForAny();
     // set the range to the default if the configured one is invalid or empty
-    if (_anyCoroQueueIdRange.first >= _anyCoroQueueIdRange.second ||
-        _anyCoroQueueIdRange.first >= _coroQueues.size() ||
-        _anyCoroQueueIdRange.second > _coroQueues.size())
+    if (coroQueueIdRangeForAny.first < coroQueueIdRangeForAny.second &&
+        coroQueueIdRangeForAny.first < _coroQueues.size() &&
+        coroQueueIdRangeForAny.second <= _coroQueues.size())
     {
-        _anyCoroQueueIdRange = std::make_pair(0, _coroQueues.size());
+        _coroQueueIdRangeForAny = coroQueueIdRangeForAny;
     }
 }
 
@@ -147,6 +148,10 @@ size_t DispatcherCore::coroSize(int queueId) const
         }
         return size;
     }
+    else if ((queueId >= (int)_coroQueues.size()) || (queueId < 0))
+    {
+        throw std::runtime_error("Invalid coroutine queue id");
+    }
     return _coroQueues.at(queueId).size();
 }
 
@@ -160,6 +165,10 @@ bool DispatcherCore::coroEmpty(int queueId) const
             if (!queue.empty()) return false;
         }
         return true;
+    }
+    else if ((queueId >= (int)_coroQueues.size()) || (queueId < 0))
+    {
+        throw std::runtime_error("Invalid coroutine queue id");
     }
     return _coroQueues.at(queueId).empty();
 }
@@ -333,7 +342,7 @@ void DispatcherCore::post(Task::Ptr task)
         
         //Insert into the shortest queue or the first empty queue found
         size_t numTasks = std::numeric_limits<size_t>::max();
-        for (size_t i = _anyCoroQueueIdRange.first; i < _anyCoroQueueIdRange.second; ++i)
+        for (size_t i = _coroQueueIdRangeForAny.first; i < _coroQueueIdRangeForAny.second; ++i)
         {
             size_t queueSize = _coroQueues[i].size();
             if (queueSize < numTasks)
@@ -417,9 +426,9 @@ int DispatcherCore::getNumIoThreads() const
 }
 
 inline
-const std::pair<size_t, size_t>& DispatcherCore::getAnyCoroQueueIdRange() const
+const std::pair<size_t, size_t>& DispatcherCore::getCoroQueueIdRangeForAny() const
 {
-    return _anyCoroQueueIdRange;
+    return _coroQueueIdRangeForAny;
 }
 
 }}
